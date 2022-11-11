@@ -15,10 +15,8 @@ permalink: "/post/{{ post.slug | slug }}/index.html"
 </head>
 <body>
     <h1>{{ post.title }}</h1>
-    {% for item in post.toc %}
-    {{ item | log }}
-        <li><a href="#{{ item.id }}">{{ item.text }}</a></li>
-    {% endfor %}
+    {% include 'toc.html', level: post.tocArray %}
+
     {{ post.html }}
 
 

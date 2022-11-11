@@ -1,6 +1,8 @@
 const GraphQLClient = require('graphql-request').GraphQLClient
 const isHeader = require('../utils/isHeader')
 const addId = require('../utils/addId')
+const TOC = require('table-of-contents-json');
+const generateJSON = require('../utils/toc')
 
 const {astToHtmlString} = require('@graphcms/rich-text-html-renderer')
 
@@ -43,6 +45,8 @@ const renderers = {
 }
 
 const addContent = async (post) => {
+    const toc = new TOC;
+
     // Get the array of nodes from the JSON
     const content = post.content.json.children
 
@@ -54,12 +58,11 @@ const addContent = async (post) => {
     
     // Create a list of headers from the content
     const headers = await contentWithIds.filter(isHeader)
-    // Build the Table of Contents from the headers (currently no nesting)
-    // TODO: Add nesting
-    const toc = await headers.map(buildToc)
+    const tocArray = await generateJSON(headers)
+
 
     // Return the post with additional fields for rendering in 11ty
-    return { ...post, html, toc }
+    return { ...post, html, tocArray }
 }
 
 

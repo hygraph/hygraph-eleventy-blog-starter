@@ -1,0 +1,13 @@
+<ul>
+    {% for item in level %}
+    {% assign length = item.tocChildren | size %}
+    <li>
+        <a href="#{{item.id}}">{{ item.children[0].text }}</a>
+        {% if length > 0 %}
+            {% assign children = item.tocChildren %}
+            {% include 'toc.html', level: item.tocChildren %}
+        {% endif %}
+    </li>
+
+    {% endfor %}
+</ul>
