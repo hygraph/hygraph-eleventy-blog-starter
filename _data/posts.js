@@ -58,7 +58,11 @@ const addContent = async (post) => {
     
     // Create a list of headers from the content
     const headers = await contentWithIds.filter(isHeader)
-    const tocArray = await generateJSON(headers)
+    const headerJson = headers.map(header => ({
+        ...header,
+        text: header.children[0].text
+    }))
+    const tocArray = await generateJSON(headerJson)
 
 
     // Return the post with additional fields for rendering in 11ty

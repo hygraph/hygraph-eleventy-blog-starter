@@ -1,67 +1,6 @@
 
 
-/* Nodejs Script to take array of headlines and build a nested toc
-// Starting Array structure:
-[
-    {
-        type: 'heading-one',
-        children: [ [Object] ],
-        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60'
-    },
-    {
-        type: 'heading-two',
-        children: [ [Object] ],
-        id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a'
-    },
-    {
-        type: 'heading-one',
-        children: [ [Object] ],
-        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60'
-    },
-    {
-        type: 'heading-two',
-        children: [ [Object] ],
-        id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a'
-    },
-    {
-        type: 'heading-three',
-        children: [ [Object] ],
-        id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a'
-    },
-]
-// Desired output:
-[
-    {
-        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60',
-        text: 'Heading One',
-        children: [
-            {
-                id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a',
-                text: 'Heading Two',
-                children: []
-            }
-        ]
-    },
-    {
-        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60',
-        text: 'Heading One',
-        children: [
-            {
-                id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a',
-                text: 'Heading Two',
-                children: [
-                    {
-                        id: 'c3b2b2b9-1b9b-4b9b-8b1a-1b9b4b9b8b1a',
-                        text: 'Heading Three',
-                        children: []
-                    }
-                ]
-            }
-        ]
-    }
-]
 
-*/
 function getLevel(type) {
     // get number from either string heading-one, heading-two or string h1, h2, etc.
     // if string has dash, split and get last item and convert string one, two, etc. to number
@@ -158,30 +97,24 @@ OUTPUT:
             console.log('deeper level condition')
             currentToc = currentToc[currentToc.length - 1].tocChildren
             currentTocItem = {
-                type: item.type,
-                children: item.children,
+                ...item,
                 tocChildren: [],
-                id: item.id
             }
             currentToc.push(currentTocItem)
         }
         if (level === currentLevel) {
             // add to currentToc
             currentTocItem = {
-                type: item.type,
-                children: item.children,
+                ...item,
                 tocChildren: [],
-                id: item.id
             }
             currentToc.push(currentTocItem)
         }
         if (level < currentLevel) {
             // add to parentToc
             currentTocItem = {
-                type: item.type,
-                children: item.children,
+                ...item,
                 tocChildren: [],
-                id: item.id
             }
             currentToc.push(currentTocItem)
         }
@@ -189,7 +122,7 @@ OUTPUT:
 
     }
 
-
+    console.log(toc)
     return toc
 
 }
