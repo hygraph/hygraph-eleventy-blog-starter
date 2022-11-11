@@ -8,15 +8,11 @@ function getLevel(type) {
 
     if (!type) return
     if (type.includes('-')) {
-        // console.log('in dash', type)
         const split = type.split('-')
         const level = split[split.length - 1]
-        // convert one, two, etc. to number
         const number = level.replace('one', 1).replace('two', 2).replace('three', 3).replace('four', 4).replace('five', 5).replace('six', 6)
         return number
     } else {
-        // console.log('in no dash', type)
-
         const split = type.split('h')
         const level = split[split.length - 1]
 
@@ -25,55 +21,35 @@ function getLevel(type) {
 }
 
 function generateJSON (array) {
-
+// INPUT: 
 /* 
 [
   {
-    type: 'heading-one',
-    children: [ [Object] ],
-    id: 'd976443c-00e7-49fe-934e-009419c0c79a'
-  }
-]
-[
-  {
-    type: 'heading-one',
-    children: [ [Object] ],
-    id: 'f23057eb-8c54-446b-8eab-320f6158312b'
+    type: 'heading-one', // or h1
+    id: 'd976443c-00e7-49fe-934e-009419c0c79a' // ID for jumplink
+    // ...additionalData
   },
   {
-    type: 'heading-two',
-    children: [ [Object] ],
-    id: 'ed36b28b-f00b-4805-b958-6129b8c01dd2'
-  },
-  {
-    type: 'heading-three',
-    children: [ [Object] ],
-    id: '45f48d91-9d50-45a7-ac41-3589f1285059'
+    type: 'heading-two', // or h2
+    id: 'd976443c-00e7-49fe-934e-009419c0c79a' // ID for jumplink
+    // ...additionalData
   }
 ]
-INPUT: 
+
 
 OUTPUT:
 [
     {
         type: 'heading-one',
-        children: [ [Object] ],
+        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60'
+        // ...additionalData,
         tocChildren: [
             {
                 type: 'heading-two',
                 children: [ [Object] ],
-                tocChildren: []
-            },
-            {
-                type: 'heading-two',
-                children: [ [Object] ],
-                tocChildren: []
+                tocChildren: [],
             }
-
-
         ]
-        id: '12c646c0-266f-4fb0-bb9a-977364c8dd60'
-
     }
 ]
 */
@@ -93,8 +69,6 @@ OUTPUT:
         }
         // create array item at proper level
         if (level > currentLevel) {
-
-            console.log('deeper level condition')
             currentToc = currentToc[currentToc.length - 1].tocChildren
             currentTocItem = {
                 ...item,
@@ -119,12 +93,8 @@ OUTPUT:
             currentToc.push(currentTocItem)
         }
         currentLevel = level
-
     }
-
-    console.log(toc)
     return toc
-
 }
 
 module.exports = generateJSON

@@ -1,7 +1,6 @@
 <ul>
     {% for item in level %}
     {% assign length = item.tocChildren | size %}
-    {{ item | log}}
     <li>
         <a href="#{{item.id}}">{{ item.text }}</a>
         {% if length > 0 %}
