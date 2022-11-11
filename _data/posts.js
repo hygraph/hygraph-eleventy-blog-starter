@@ -2,7 +2,7 @@ const GraphQLClient = require('graphql-request').GraphQLClient
 const isHeader = require('../utils/isHeader')
 const addId = require('../utils/addId')
 const TOC = require('table-of-contents-json');
-const generateJSON = require('../utils/toc')
+const generateJSON = require('nested-toc-json-generator')
 
 const {astToHtmlString} = require('@graphcms/rich-text-html-renderer')
 

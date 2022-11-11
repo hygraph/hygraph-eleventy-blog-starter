@@ -14,6 +14,7 @@
     "@graphcms/rich-text-html-renderer": "^0.2.0",
     "escape-html": "^1.0.3",
     "graphql-request": "^5.0.0",
+    "nested-toc-json-generator": "^0.1.0",
     "slate": "^0.85.0",
     "table-of-contents-json": "^1.2.0",
     "uuid": "^9.0.0"
