@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@11ty/eleventy": "^1.0.2",
+    "@graphcms/rich-text-html-renderer": "^0.2.0",
     "escape-html": "^1.0.3",
     "graphql-request": "^5.0.0",
     "slate": "^0.85.0",

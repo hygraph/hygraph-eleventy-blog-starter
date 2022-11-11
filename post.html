@@ -19,7 +19,8 @@ permalink: "/post/{{ post.slug | slug }}/index.html"
     {{ item | log }}
         <li><a href="#{{ item.id }}">{{ item.text }}</a></li>
     {% endfor %}
-    {{ post.contentString }}
+    {{ post.html }}
+
 
 
 </body>

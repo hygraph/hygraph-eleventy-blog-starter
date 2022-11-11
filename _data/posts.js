@@ -1,10 +1,9 @@
 const GraphQLClient = require('graphql-request').GraphQLClient
-const slate = require('slate')
-const escapeHtml = require('escape-html')
-const slugify = require('slugify')
 const isHeader = require('../utils/isHeader')
 const addId = require('../utils/addId')
-const types = require('../utils/finalTypes')
+
+const {astToHtmlString} = require('@graphcms/rich-text-html-renderer')
+
 // Get Hygraph posts for 11ty data
 const getHygraphPosts = async () => {
     const client = new GraphQLClient('https://api-us-east-1.hygraph.com/v2/cl8vzs0jm7fb201ukbf4ahe92/master')
@@ -23,8 +22,6 @@ const getHygraphPosts = async () => {
     return response.posts
 }
 
-
-
 const buildToc = (node) => {
     if (node.type === 'heading-one' || node.type === 'heading-two' || node.type === 'heading-three' || node.type === 'heading-four' || node.type === 'heading-five' || node.type === 'heading-six') {
         return {
@@ -34,56 +31,37 @@ const buildToc = (node) => {
     }
 }
 
-const serializer = async (node) => {
-    if (slate.Text.isText(node)) {
 
-        let string = escapeHtml(node.text)
-        if (node.bold) {
-            string = `<strong>${string}</strong>`
-        }
-        if (node.italic) {
-            string = `<em>${string}</em>`
-        }
-        if (node.underline) {
-            string = `<u>${string}</u>`
-        }
-        if (node.strikethrough) {
-            string = `<s>${string}</s>`
-        }
-        if (node.code) {
-            string = `<code>${string}</code>`
-        }
-        console.log(string)
-        return string
-    }
-
-
-    const children = await Promise.all(node.children.map(n => serializer(n)))
-
-    if (!node || !node.type || node.type === undefined) return types['default'](children, node)
-
-    return types[node.type](children, node)
-
+const renderers = {
+    h1: ({id, children}) => `<h1 id="${id}">${children}</h1>`,
+    h2: ({id, children}) => `<h2 id="${id}">${children}</h2>`,
+    h3: ({id, children}) => `<h3 id="${id}">${children}</h3>`,
+    h4: ({id, children}) => `<h4 id="${id}">${children}</h4>`,
+    h5: ({id, children}) => `<h5 id="${id}">${children}</h5>`,
+    h6: ({id, children}) => `<h6 id="${id}">${children}</h6>`,
+    
 }
-
 
 const addContent = async (post) => {
+    // Get the array of nodes from the JSON
     const content = post.content.json.children
 
+    // Add an ID to each node (Used for Table of Contents)
     const contentWithIds = await content.map(addId)
 
-    const contentString = await serialize(contentWithIds)
+    // Build the content as HTML
+    const html = await astToHtmlString({content: contentWithIds, renderers: renderers})
+    
+    // Create a list of headers from the content
     const headers = await contentWithIds.filter(isHeader)
+    // Build the Table of Contents from the headers (currently no nesting)
+    // TODO: Add nesting
     const toc = await headers.map(buildToc)
 
-    return { ...post, contentString, toc }
+    // Return the post with additional fields for rendering in 11ty
+    return { ...post, html, toc }
 }
 
-const serialize = async (nodes) => {
-    const serialized = await Promise.all(nodes.map(serializer))
-
-    return serialized.join('')
-}
 
 module.exports = async () => {
     const posts = await getHygraphPosts()
