@@ -1,7 +1,6 @@
 const GraphQLClient = require('graphql-request').GraphQLClient
 const isHeader = require('../utils/isHeader')
 const addId = require('../utils/addId')
-const TOC = require('table-of-contents-json');
 const generateJSON = require('nested-toc-json-generator')
 
 const {astToHtmlString} = require('@graphcms/rich-text-html-renderer')
@@ -24,14 +23,6 @@ const getHygraphPosts = async () => {
     return response.posts
 }
 
-const buildToc = (node) => {
-    if (node.type === 'heading-one' || node.type === 'heading-two' || node.type === 'heading-three' || node.type === 'heading-four' || node.type === 'heading-five' || node.type === 'heading-six') {
-        return {
-            id: node.id,
-            text: node.children[0].text,
-        }
-    }
-}
 
 
 const renderers = {
@@ -45,7 +36,6 @@ const renderers = {
 }
 
 const addContent = async (post) => {
-    const toc = new TOC;
 
     // Get the array of nodes from the JSON
     const content = post.content.json.children
