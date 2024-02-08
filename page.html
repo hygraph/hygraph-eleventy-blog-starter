@@ -1,0 +1,12 @@
+---
+pagination: 
+    data: pages
+    size: 1
+    alias: currentPage
+permalink: "/{{ currentPage.slug | slug }}/index.html"
+layout: layout.html
+---
+<h1>{{ currentPage.title }}</h1>
+
+{{ currentPage.content.html }}
+

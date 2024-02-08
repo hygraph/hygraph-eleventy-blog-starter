@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +9,53 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
 </head>
+
 <body>
-
-<main class="prose max-w-3xl mt-10 m-auto">
-    {{ content }}
-</main>
-</body>
-</html>
-
-
+    <div class="px-6 max-w-3xl mx-auto">
+        <header class="py-10 relative">
+            <nav class="relative flex items-center justify-between sm:h-10 "><a
+                    aria-label="Hygraph Next.js Blog Starter" href="/"><img alt="Hygraph Logo" loading="lazy"
+                        width="150" height="40" decoding="async" data-nimg="1" class="hidden sm:block h-10"
+                        style="color:transparent" src="/static/svg/logo.svg" /><img alt="Hygraph Logo"
+                        loading="lazy" width="44" height="40" decoding="async" data-nimg="1" class="h-10 sm:hidden"
+                        style="color:transparent" src="/static/svg/mark.svg" /></a>
+                <ul>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="prose max-w-3xl mt-10 m-auto">
+            {{ content }}
+        </main>
+        
+        <footer class="bg-white mt-10 dark:bg-gray-900">
+            <div class="py-6 lg:py-8">
+                <div class="md:flex md:justify-between">
+                    <div class="mb-6 md:mb-0"><a aria-label="Hygraph Next.js Blog Starter" href="/"><img
+                                alt="Hygraph Logo" loading="lazy" width="150" height="40" decoding="async" data-nimg="1"
+                                class="hidden sm:block h-10" style="color:transparent"
+                                src="/static/svg/logo.svg" /><img alt="Hygraph Logo" loading="lazy"
+                                width="44" height="40" decoding="async" data-nimg="1" class="h-10 sm:hidden"
+                                style="color:transparent" src="/static/svg/mark.svg" /></a></div>
+                    <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                        <div>
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us
+                            </h2>
+                            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                                <ul>
+                                    <li><a href="https://twitter.com/hygraph">Twitter</a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                <div class="sm:flex sm:items-center sm:justify-between"><span
+                        class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023<!-- --> <a
+                            href="https://hygraph.com/" class="hover:underline">Hygraph</a>. All Rights Reserved.</span>
+                </div>
+            </div>
+        </footer>
+        </div>
+        </body>
+        </html>

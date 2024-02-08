@@ -5,24 +5,24 @@ const getHygraphPosts = async () => {
     const client = new GraphQLClient('https://api-us-west-2.hygraph.com/v2/cljhg3w940kcw01um5tov6e2a/master')
     const response = await client.request(`
     query MyQuery {
-        posts {
+        pages {
           slug
           title
           content {
-            json
+            raw
             html
           }
         }
       }
 `    )
 
-    return response.posts
+    return response.pages
 }
 
 
 
 module.exports = async () => {
-    const posts = await getHygraphPosts()
+    const pages = await getHygraphPosts()
 
-    return posts
+    return pages
 }
