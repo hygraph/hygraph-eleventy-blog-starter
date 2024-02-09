@@ -6,7 +6,10 @@ pagination:
 permalink: "/post/{{ post.slug | slug }}/index.html"
 layout: layout.html
 ---
+
 <h1>{{ post.title }}</h1>
 
-{{ post.content.html }}
+{% include 'toc.html',  level: post.tocArray %}
+
+{{ post.html }}
 
