@@ -13,6 +13,7 @@
   "dependencies": {
     "@11ty/eleventy": "^1.0.2",
     "@graphcms/rich-text-html-renderer": "^0.2.0",
+    "dotenv": "^16.4.3",
     "escape-html": "^1.0.3",
     "graphql-request": "^5.0.0",
     "nested-toc-json-generator": "^0.1.0",
