@@ -16,7 +16,6 @@ const getHygraphPosts = async () => {
         }
       }
 `    )
-
     return response.pages
 }
 
@@ -27,13 +26,13 @@ async function addContent(post) {
   const html = await astToHtmlString({
     content: content
   });
-  return html
+  return {...post, html}
 }
 
 module.exports = async () => {
     const pages = await getHygraphPosts()
-    const pagesWithContent = await pages.map(addContent)
-
+    const pagesWithContent = await Promise.all(pages.map(addContent))
+  console.log(pagesWithContent)
 
     return pagesWithContent
 }

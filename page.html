@@ -8,7 +8,7 @@ layout: layout.njk
 eleventyComputed: 
     title: "{{currentPage.title}}"
 ---
-<h1>{{ currentPage.title }}</h1>
 
-{{ currentPage.content.html }}
-
+<div class="prose">
+    {{ currentPage.html }}
+</div>
