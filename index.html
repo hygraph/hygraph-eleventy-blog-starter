@@ -1,8 +1,42 @@
 ---
-layout: layout.html
+layout: layout.njk
 ---
 
-<h1>Table of Contents in 11ty</h1>
-{% for post in posts %}
-    <h2><a href="/post/{{post.slug}}/">{{ post.title }}</a></h2>
-{% endfor %}
+
+
+<div class="divide-y divide-gray-200">
+    <div class="pt-6 pb-8 space-y-2 md:space-y-5">
+        <h1
+            class="text-3xl mb-0 leading-9 font-extrabold text-gray-900 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+            Latest
+        </h1>
+        <p class="text-lg leading-7 text-gray-500">
+            Our latest blog posts.
+        </p>
+    </div>
+</div>
+
+<ul class="divide-y divide-gray-200">
+    {% for post in posts %}
+
+    <li class="py-12">
+        <article class="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
+            <dl>
+                <dt class="sr-only">Published on</dt>
+                <dd class="text-base leading-6 font-medium text-gray-500"><time datetime="{{ post.createdAt }}">{{ post.createdAt | date: '%B %d, %Y' }}</time></dd>
+            </dl>
+            <div class="space-y-5 xl:col-span-3">
+                <div class="space-y-6">
+                    <h2 class="text-2xl leading-8 font-bold tracking-tight"><a class="text-gray-900"
+                            href="/posts/{{ post.slug }}">{{ post.title }}</a>
+                    </h2>
+                    <p class="prose max-w-none text-gray-500">
+                        {{ post.excerpt }}
+                    </p>
+                </div>
+            </div>
+        </article>
+    </li>
+    {% endfor %}
+
+</ul>

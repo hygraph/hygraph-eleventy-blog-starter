@@ -1,15 +1,85 @@
+---js
+{
+    pagination: {
+        data: "posts",
+        size: 1,
+        alias: "post"
+    },
+    permalink: "/posts/{{ post.slug | slug }}/index.html",
+    layout: "interior.njk",
+    eleventyComputed: {
+        title: data => data.post.title
+    }
+}
+
 ---
-pagination: 
-    data: posts
-    size: 1
-    alias: post
-permalink: "/post/{{ post.slug | slug }}/index.html"
-layout: layout.html
----
+
+
+<article>
+    <header class="pt-6 lg:pb-10">
+      <div class="space-y-1">
+        <div>
+          <h1 class="text-3xl mb-0 leading-9 font-extrabold text-gray-900 tracking-tight sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+            {{post.title}}
+          </h1>
+        </div>
+      </div>
+    </header>
+
+
+    <div
+    class="divide-y lg:divide-y-0 divide-gray-200 lg:grid lg:grid-cols-[200px_1fr] gap-x-6 pb-16 lg:pb-20"
+    style="grid-template-rows:auto 1fr"
+  >
+    <dl class="pt-6 pb-10 lg:pt-0 not-prose lg:border-b lg:border-gray-200">
+     {% if post.author %}
+      <dt class="mb-2 text-sm font-medium leading-5">Written by</dt>
+      <dd>
+        <ul class="space-x-8 sm:space-x-12 lg:space-x-0 lg:space-y-8">
+          <li  class="flex space-x-2">
+            {% if post.author.picture %}
+            <img class="w-10 h-10 rounded-full" src="{{post.author.picture.url}}" width="200" height="200" alt="{{post.author.name}}"/>
+
+            {% endif %}
+            <dl class="flex-1 text-sm font-medium leading-5">
+              <dt class="sr-only">Name</dt>
+              <dd class="text-gray-900">{{post.author.name}}</dd>
+                {% if post.author.title %}
+                  <dt class="sr-only">Title</dt>
+                  <dd class="text-gray-500">{{post.author.title}}</dd>
+                {% endif %}
+            </dl>
+          </li>
+        </ul>
+      </dd>
+        {% endif %}
+      <div class="mt-8">
+        <dt class="text-sm font-medium leading-5">Published on</dt>
+        <dd class="text-base leading-6 font-medium text-gray-500">
+          <time dateTime={{post.createdAt}}>
+            {{ post.createdAt | date: '%B %d, %Y' }}
+          </time>
+        </dd>
+      </div>
+    </dl>
+    <div class="prose lg:pb-0 lg:row-span-2">
+
+
+
+    {{ post.html }}
+
+    </div>
+    </div>
+
+
+</article>  
+
+
+
+
+
 
 <h1>{{ post.title }}</h1>
 
-{% include 'toc.html',  level: post.tocArray %}
 
-{{ post.html }}
 
