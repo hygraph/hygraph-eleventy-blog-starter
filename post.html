@@ -1,17 +1,12 @@
----js
-{
-    pagination: {
-        data: "posts",
-        size: 1,
-        alias: "post"
-    },
-    permalink: "/posts/{{ post.slug | slug }}/index.html",
-    layout: "interior.njk",
-    eleventyComputed: {
-        title: data => data.post.title
-    }
-}
-
+---
+pagination:
+    data: "posts"
+    size: 1
+    alias: "post"
+permalink: "/posts/{{ post.slug | slug }}/index.html"
+layout: "interior.njk"
+eleventyComputed: 
+    title: "{{post.title}}"
 ---
 
 
@@ -26,12 +21,11 @@
       </div>
     </header>
 
-
     <div
-    class="divide-y lg:divide-y-0 divide-gray-200 lg:grid lg:grid-cols-[200px_1fr] gap-x-6 pb-16 lg:pb-20"
-    style="grid-template-rows:auto 1fr"
+    class="divide-y grid-co lg:divide-y-0 divide-gray-200 lg:grid lg:grid-cols-[200px_1fr] gap-x-6 pb-16 lg:pb-20"
   >
-    <dl class="pt-6 pb-10 lg:pt-0 not-prose lg:border-b lg:border-gray-200">
+    <div class="pt-6 lg:pt-0">
+    <dl class="not-prose pb-5 lg:border-b lg:border-gray-200">
      {% if post.author %}
       <dt class="mb-2 text-sm font-medium leading-5">Written by</dt>
       <dd>
@@ -53,7 +47,7 @@
         </ul>
       </dd>
         {% endif %}
-      <div class="mt-8">
+      <div class="mt-8  not-prose">
         <dt class="text-sm font-medium leading-5">Published on</dt>
         <dd class="text-base leading-6 font-medium text-gray-500">
           <time dateTime={{post.createdAt}}>
@@ -61,7 +55,14 @@
           </time>
         </dd>
       </div>
+
     </dl>
+    <div class="prose pt-5">
+        <h4>Table of Contents</h4>
+        {% include 'toc.html', level: post.tocArray, maxHeader: 'heading-two' %}
+
+    </div>
+</div>
     <div class="prose lg:pb-0 lg:row-span-2">
 
 
@@ -74,12 +75,6 @@
 
 </article>  
 
-
-
-
-
-
-<h1>{{ post.title }}</h1>
 
 
 

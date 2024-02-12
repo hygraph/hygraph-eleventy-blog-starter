@@ -82,7 +82,6 @@ async function addContent(post) {
   }));
 
   const tocArray = await generateJSON(headerJson);
-
   return {
     ...post,
     html,

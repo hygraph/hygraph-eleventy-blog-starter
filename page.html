@@ -5,6 +5,8 @@ pagination:
     alias: currentPage
 permalink: "/{{ currentPage.slug | slug }}/index.html"
 layout: layout.njk
+eleventyComputed: 
+    title: "{{currentPage.title}}"
 ---
 <h1>{{ currentPage.title }}</h1>
 

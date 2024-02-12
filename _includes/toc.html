@@ -1,11 +1,13 @@
-<ul>
+<ul class="sticky p-0">
     {% for item in level %}
     {% assign length = item.tocChildren | size %}
     <li>
         <a href="#{{item.id}}">{{ item.text }}</a>
         {% if length > 0 %}
             {% assign children = item.tocChildren %}
-            {% include 'toc.html', level: item.tocChildren %}
+            {% if item.type != 'heading-two' %}
+                {% include 'toc.html', level: item.tocChildren %}
+            {% endif %}
         {% endif %}
     </li>
 
