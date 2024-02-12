@@ -1,4 +1,6 @@
 const client = require('../utils/hygraphClient')
+const { astToHtmlString } = require("@graphcms/rich-text-html-renderer");
+
 // Get Hygraph posts for 11ty data
 const getHygraphPosts = async () => {
 
@@ -19,9 +21,19 @@ const getHygraphPosts = async () => {
 }
 
 
+async function addContent(post) {
+  const content = post.content.raw.children;
+
+  const html = await astToHtmlString({
+    content: content
+  });
+  return html
+}
 
 module.exports = async () => {
     const pages = await getHygraphPosts()
+    const pagesWithContent = await pages.map(addContent)
 
-    return pages
+
+    return pagesWithContent
 }
