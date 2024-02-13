@@ -5,7 +5,7 @@ const { astToHtmlString } = require("@graphcms/rich-text-html-renderer");
 const getHygraphPosts = async () => {
 
   const response = await client.request(`
-    query MyQuery {
+    query PageQuery {
         pages {
           slug
           title

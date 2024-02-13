@@ -9,7 +9,7 @@ const generateJSON = require("nested-toc-json-generator");
 const getHygraphPosts = async () => {
  
   const response = await client.request(`
-    query MyQuery {
+    query PostQuery {
         posts {
           slug
           title

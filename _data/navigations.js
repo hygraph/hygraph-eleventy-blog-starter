@@ -3,10 +3,10 @@ const client = require('../utils/hygraphClient')
 // Get Hygraph posts for 11ty data
 const getHygraphPosts = async () => {
     const response = await client.request(`
-    query MyQuery {
-            navigations {
-              id
-              link {
+    query NavigationQuery {
+        navigations {
+            id
+            link {
                 externalUrl
                 displayText
                 page {
@@ -16,10 +16,10 @@ const getHygraphPosts = async () => {
                   }
                 }
               }
-              navId
+            navId
             
-            }
-          }
+        }
+    }
       
 `    )
 
