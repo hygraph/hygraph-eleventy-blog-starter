@@ -11,7 +11,7 @@
 1. **Clone and install the project**
 
 ```shell
-npx degit url to come
+npx degit git@github.com:hygraph/hygraph-eleventy-blog-starter.git
 ```
 
 2. **Provide your Hygraph project keys**
